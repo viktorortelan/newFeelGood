@@ -24,6 +24,7 @@ export default function Telalogin() {
         catch (err) {
             if(err.response)
                 toast.error(err.response.data.err);
+
             else 
                 toast.error(err.message);
         }

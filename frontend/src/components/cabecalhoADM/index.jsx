@@ -15,7 +15,7 @@ export default function CabecalhoADM() {
         }
         else {
             const admLogado = localStorage.getItem('adm-logado');
-            setNome(admLogado);
+            setNome(admLogado); 
         }
 
     }, [])
