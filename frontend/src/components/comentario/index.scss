@@ -1,0 +1,25 @@
+.feed{
+    display: flex;
+    flex-direction: row ;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0px;
+    padding: 20px 10px;
+    border: 1px solid rgb(63, 61, 61);
+    border-radius: 5px ;
+    box-shadow: 1px 2px 7px gray;
+
+    .infos{
+        display: flex;
+        flex-direction: column;
+        gap: 2;
+
+        h1{
+            font: 400 20px poppins;
+            
+        }
+        p{
+            font: 400 18px poppins;
+        }
+    }
+}

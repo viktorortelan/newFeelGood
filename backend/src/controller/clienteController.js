@@ -1,5 +1,6 @@
 import { cadastroCliente, loginCliente, buscar, totalCliente} from "../repository/clienteRepository.js";
 import { updateCliente } from "../repository/addClientRepository.js";
+import { emailExistente, telefoneExistente } from "../validation/clienteValidation.js";
 
 import { Router } from "express";
 
@@ -69,6 +70,15 @@ endpoints.put('/atualizar/cliente/:nome/:email/:telefone/:id', async (req, resp)
     try {
         console.log(req.params); 
         const { nome, email, telefone, id } = req.params; 
+
+        const emailigual = await emailExistente(email, id);
+        if (emailigual) {
+            return resp.status(400).send({ message: 'O e-mail já está sendo usado por outro cliente.' });
+        }
+        const telefoneigual = await telefoneExistente(telefone, id);
+        if (telefoneigual) {
+            return resp.status(400).send({ message: 'O telefone já está sendo usado por outro cliente.' });
+        }
         
         let registro = await updateCliente(nome, email, telefone, id); 
         

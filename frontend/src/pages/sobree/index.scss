@@ -193,11 +193,24 @@
 
         .titulo{
             width: 90%;
+            margin-bottom: 40px;
 
             h1 {
-                font: 400 20px poppins;
+                font: 400 30px poppins;
             }
         }
+
+       .left{
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        width: 80%;
+        .reforco{
+            display: flex;
+            flex-direction: column;
+            
+        }
+       }
 
     }
 

@@ -68,6 +68,7 @@ export default function TelaCliente() {
         try {
             await axios.post(`http://localhost:8080/addFeed/${idCliente}/${comentario}`);
             toast.success('Comenatario adicionado');
+            setComentario('')
         } 
         catch (error) {
             console.error('Erro ao add feedback:', error);

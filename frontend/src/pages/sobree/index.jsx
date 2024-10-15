@@ -3,8 +3,25 @@ import { Link } from "react-router-dom"
 import Rodape from '../../components/rodape';
 import Cabecalho from '../../components/cabecalho'
 import Balao from '../../components/balaoSup';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import ComentarioFeed from '../../components/comentario';
 
 export default function Sobre() {
+    const [array, setArray] = useState([])
+
+
+    async function feedBacks() {
+        const api = await axios.get('http://localhost:8080/aparecerFeed');
+        let values = api.data;
+        setArray(values)
+        console.log(array)
+    }
+
+    useEffect(() => {
+        feedBacks()
+    }, [])
+
     return(
         <div className="SobreNos">
            
@@ -90,21 +107,21 @@ export default function Sobre() {
         </div>
 
         <div className="feedback">
-
-            <div className="titulo">
+        <div className="titulo">
                 <h1>Nossos principais feedbacks:</h1>
             </div>
-
-            <div className="comentarios">
-                <img src="/assets/images/viktor.png" alt="viktor" />
-                <div className="infos">
-                    <h1>viktor vinsmoke</h1>
-                    <p>amei muito os imoveis</p>
+              <div className="left">
+              <div className="reforco">
+                        {array.map(item =>
+                    
+                            <ComentarioFeed
+                                nome={item.nm_cliente}
+                                comentario={item.ds_comentario}
+                            />
+               
+                        )} 
                 </div>
-            </div>
-
-            
-            
+              </div>
         </div>
 
             <Balao/>
