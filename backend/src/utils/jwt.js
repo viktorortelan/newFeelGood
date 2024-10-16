@@ -5,6 +5,10 @@ export function createToken(token) {
     return jwt.sign(token, KEY);
 }
 
+export function readToken(token) {
+    return jwt.verify(token, KEY);
+}
+
 export function useAutentify(req, resp, next) {
     return autentify(req, resp, next);
 }

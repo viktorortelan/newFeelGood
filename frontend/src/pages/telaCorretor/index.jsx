@@ -10,7 +10,7 @@ export default function TelaCorretor() {
     const [array, setArray] = useState([]);
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
-    const idCorretor = storage('corretor-logado').id; 
+    const idCorretor = storage('corretor-logado').id_corretor; 
     const [showPopup, setShowPopup] = useState(false);
     const [editCorretor, setEditCorretor] = useState({ id: '', nome: '', email: '', senha: '' });
     

@@ -1,6 +1,15 @@
 import database from "./conn.js";
 
+export async function addCorretor(corretorOBJ) {
+    let comando = `
+        INSERT INTO tb_corretores (nm_adm, ds_email, ds_senha) 
+                VALUES(?,?,?)
+    `;
 
+    let registro = await database.query(comando, [corretorOBJ.nome, corretorOBJ.email, corretorOBJ.senha]);
+    let fim = registro[0];
+    return fim.insertId;
+}
 
 
 export async function buscarCorretor() {

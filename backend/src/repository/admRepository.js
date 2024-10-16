@@ -10,6 +10,6 @@ export async function loginADM(email, senha) {
     `;
 
     let registro = await database.query(comando, [email, senha]);
-    return registro[0];
+    return registro[0][0];
 
 }

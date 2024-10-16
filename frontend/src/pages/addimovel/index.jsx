@@ -20,6 +20,7 @@ const TelaAdd = ({ setExibir }) =>  {
             <Link to="/addimovel">ADICIONAR IMOVEL</Link>
             <Link to="/gestao">GESTÃO DE IMOVEIS</Link>
             <Link to="/gestaoCliente">GESTÃO DE CLIENTE</Link>
+            <Link to="/addCorretor">Adicionar Corretor</Link>
             <Link to="/gestaoCorretor" >GESTÃO DE CORRETORES</Link>
             <Link to="/dashboardAdm" >DASHBOARD</Link>
           </div>

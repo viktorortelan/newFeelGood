@@ -85,9 +85,9 @@ export default function NovoCard({ setExibir }) {
         const galeriaFinal = `${nomeGaleria},${nomeGaleria2},${nomeGaleria3},${nomeGaleria4}`;
 
         const ret = await axios.post(`http://localhost:8080/addImoveis/${nomeCapa}/${galeriaFinal}/${nome}/${status}/${regiao}/${lugar}/${suites}/${comodos}/${vagas}/${titulo}/${sobre}/${Math.ceil(Math.random()*funcionarios)}/${vendido? 1 : 0}?KEY=eyJhbGciOiJIUzI1NiJ9.MTU.DMKNoK3xOEex2gQrgyFyGNB1qEE0CqstRSDFCAo60OI`);
-        console.log(ret.data.id);
+        console.log(ret.data.x);
 
-        window.location.href = `/imovel/${ret.data.id}`;
+        window.location.href = `/imovel/${ret.data.x}`;
 
 
         setNome('');

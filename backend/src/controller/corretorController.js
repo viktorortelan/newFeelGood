@@ -1,7 +1,23 @@
-import { buscarCorretor, totalCorretor, updateCorretor, removerCorretor, loginCorretor} from "../repository/corretorRepository.js";
+import { buscarCorretor, totalCorretor, updateCorretor, removerCorretor, loginCorretor, addCorretor} from "../repository/corretorRepository.js";
 import {Router} from 'express';
 
 const endpoint = Router();
+
+
+endpoint.post('/addCorretor', async (req, resp) => {
+    try {
+        let corretorOBJ = req.body;
+
+        let registro = await addCorretor(corretorOBJ);
+        resp.send({
+            novoId: registro
+        })
+    } 
+    catch (error) {
+        console.error(error);
+        resp.status(500).send({ message: 'Erro ao cadastrar novo corretor.' });
+    }
+})
 
 endpoint.get('/buscar/corretor', async (req, resp) => {
     let registro = await buscarCorretor()

@@ -18,6 +18,7 @@ import DashboardAdm from './pages/dashboardAdm';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginCorretor from './pages/loginCorretor';
 import TelaCorretor from './pages/telaCorretor';
+import AddCorretor from './pages/addCorretor';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -57,6 +58,7 @@ function App() {
                 <Route path='/dashboardAdm' element={<DashboardAdm />} />
                 <Route path='/loginCorretor' element={<LoginCorretor />} />
                 <Route path='/telaCorretor' element={<TelaCorretor/>} />
+                <Route path='/addCorretor' element={<AddCorretor/>} />
 
                 <Route path='*' element={<NotFound />} />
             </Routes>

@@ -2,10 +2,11 @@ import './index.scss';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function CabecalhoADM() {
 
-    const [nome, setNome] = useState('')
+    const [infos, setInfos] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -14,11 +15,15 @@ export default function CabecalhoADM() {
             navigate('/telalogin');
         }
         else {
-            const admLogado = localStorage.getItem('adm-logado');
-            setNome(admLogado); 
+            a();
         }
 
-    }, [])
+    }, []);
+
+    const a = async () => {
+        const x = await axios.get(`http://localhost:8080/readToken/${JSON.parse(localStorage.getItem('adm-logado')).token}`);
+        setInfos(x.data);
+    }
 
     function sair() {
         localStorage.removeItem('adm-logado');
@@ -27,7 +32,7 @@ export default function CabecalhoADM() {
 
     return (
         <div className="cabecalhoo">
-            <h1>Seja bem-vindo, <span>{nome}</span></h1>
+            <h1>Seja bem-vindo, <span>{infos.nome}</span></h1>
             
             <div className="direitinha">
                 <button onClick={sair}>Sair</button>

@@ -9,6 +9,7 @@ import addClient from "../repository/addClientRepository.js";
 import viewClient from "../repository/viewClientRepository.js";
 import verifyId from '../repository/verifyIdRepository.js'
 import selectCount from "../repository/selectCountRepository.js";
+import { readToken } from "../utils/jwt.js";
 
 const endpoint = Router();
 const m = multer({ storage });
@@ -77,6 +78,12 @@ endpoint.get('/selectCount', async (req, resp) => {
     rows: value
   }
   resp.send(obj);
+});
+
+endpoint.get('/readToken/:token', (req, resp) => {
+  const { token } = req.params;
+  const x = readToken(token);
+  resp.send(x);
 });
 
 

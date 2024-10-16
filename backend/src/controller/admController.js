@@ -1,20 +1,22 @@
 import { loginADM } from "../repository/admRepository.js";
 import { Router } from 'express';
+import { createToken } from "../utils/jwt.js";
 const endpoint = Router();
 
 
 endpoint.post('/loginADM', async (req, resp) => {
     try {
         
-        let {email, senha} = req.body;
+        let { email, senha } = req.body;
 
         let x = await loginADM(email, senha);
 
-        if(!x[0])
-            throw new Error("Credenciais invalidas");
-            
-
-        resp.send(x[0]);
+        if (x === undefined) {
+            resp.send({ token: 'undefined' });
+        } else {
+            const z = createToken(x);
+            resp.send({ token: z });
+        }
 
     } catch (err) {
         
