@@ -22,7 +22,7 @@
             height: 150px;
             background-color: #F5F5F5;
             border-radius: 5px;
-            box-shadow:  3px 3px 8px gray;
+            box-shadow:  3px 3px 8px #00000025;
 
             .linha{
                 display: flex;
@@ -41,7 +41,7 @@
             display: flex;
             flex-direction: column;
             background-color: #FCFCFC;
-            box-shadow:  3px 3px 8px gray;
+            box-shadow:  3px 3px 8px #00000050;
             margin-top: 50px;
             gap: 20px;
             border-radius: 10px;
@@ -57,8 +57,9 @@
                     font: 500 22px poppins;
                 }
                 input{
-                    border: 1px solid black;
-                    border-radius: 7px;
+                    outline: none;
+                    border: 1px solid #00000050;
+                    border-radius: 3px;
                     padding: 5px 10px;
                 }
             }
@@ -73,8 +74,9 @@
                     font: 500 22px poppins;
                 }
                 input{
-                    border: 1px solid black;
-                    border-radius: 7px;
+                    outline: none;
+                    border: 1px solid #00000050;
+                    border-radius: 3px;
                     padding: 5px 10px;
                 }
             }
@@ -89,8 +91,9 @@
                     font: 500 22px poppins;
                 }
                 input{
-                    border: 1px solid black;
-                    border-radius: 7px;
+                    outline: none;
+                    border: 1px solid #00000050;
+                    border-radius: 3px;
                     padding: 5px 10px;
                 }
             }
@@ -105,10 +108,12 @@
                     font: 500 22px poppins;
                 }
                 textarea{
+                    outline: none;
                     height: 100px;
-                    border: 1px solid black;
-                    border-radius: 7px;
+                    border: 1px solid #00000050;
+                    border-radius: 3px;
                     padding: 5px 10px;
+                    
                 }
             }
         }

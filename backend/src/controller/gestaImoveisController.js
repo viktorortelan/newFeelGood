@@ -1,4 +1,4 @@
-import { GestaoImoveisBuscar, vendasSim, vendasNao, removerImovel, updateVenda, totalImoveis, imovelPorCorretor } from "../repository/gestaImoveisRepository.js";
+import { GestaoImoveisBuscar, vendasSim, vendasNao, removerImovel, updateVenda, totalImoveis, imovelPorCorretor, totalImovelCorretor, vendidoCorretor } from "../repository/gestaImoveisRepository.js";
 import {Router} from 'express';
 
 const endpoint = Router();
@@ -58,5 +58,23 @@ endpoint.get('/imovelPorCorretor/:id', async (req, resp) => {
     let busca = await imovelPorCorretor(id);
     resp.send(busca)
 });
+
+
+
+endpoint.get('/totalImovel/porCorretor/:id', async (req, resp) => {
+    let id = req.params.id;
+
+    let registro = await totalImovelCorretor(id);
+    resp.send(registro)
+})
+
+endpoint.get('/totalvendido/porCorretor/:id', async (req, resp) => {
+    let id = req.params.id;
+
+    let registro = await vendidoCorretor(id);
+    resp.send(registro)
+})
+
+
 
 export default endpoint;

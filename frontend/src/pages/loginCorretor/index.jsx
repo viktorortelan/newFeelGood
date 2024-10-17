@@ -18,6 +18,7 @@ export default function LoginCorretor() {
             
           const infos = await loginCorretor(email, senha);
           storage('corretor-logado', infos); 
+          toast.success(`Bem vindo Corretor`)
           navigate('/telaCorretor');
              
         } 

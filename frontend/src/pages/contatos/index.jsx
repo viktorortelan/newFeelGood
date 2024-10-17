@@ -5,6 +5,7 @@ import Cabecalho from '../../components/cabecalho'
 import Balao from '../../components/balaoSup';
 import { useState } from 'react';
 import emailjs from 'emailjs-com';
+// import toast, { Toaster } from 'react-hot-toast';
 
 export default function Contatos() {
  const [nome, setNome] = useState('');
@@ -87,6 +88,7 @@ export default function Contatos() {
                         <button onClick={send}>Solicitar Contato</button>
                     </div>
                 </div>
+            
             </div>
 
 

@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import ItemCard from '../itemCard';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+
 
 export default function NovoCard({ setExibir }) {
 
@@ -24,81 +27,88 @@ export default function NovoCard({ setExibir }) {
     const [vendido, setVendido] = useState(false)
 
     async function executar() {
-
+        try {
+            const formData = new FormData();
+            formData.append('img', capa);
+    
+            let a = await axios.post('http://localhost:8080/multer', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+    
+            const formData2 = new FormData();
+            formData2.append('img', galeria);
+    
+            let b = await axios.post('http://localhost:8080/multer', formData2, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+    
+            const formData3 = new FormData();
+            formData3.append('img', galeria2);
+    
+            let c = await axios.post('http://localhost:8080/multer', formData3, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+    
+            const formData4 = new FormData();
+            formData4.append('img', galeria3);
+    
+            let d = await axios.post('http://localhost:8080/multer', formData4, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+    
+            const formData5 = new FormData();
+            formData5.append('img', galeria4);
+    
+            let e = await axios.post('http://localhost:8080/multer', formData5, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+    
+    
+    
+            
+    
+            let nomeCapa = a.data.fl
+            let nomeGaleria = b.data.fl
+            let nomeGaleria2 = c.data.fl
+            let nomeGaleria3 = d.data.fl
+            let nomeGaleria4 = e.data.fl
+    
+            const galeriaFinal = `${nomeGaleria},${nomeGaleria2},${nomeGaleria3},${nomeGaleria4}`;
+    
+            const ret = await axios.post(`http://localhost:8080/addImoveis/${nomeCapa}/${galeriaFinal}/${nome}/${status}/${regiao}/${lugar}/${suites}/${comodos}/${vagas}/${titulo}/${sobre}/${Math.ceil(Math.random()*funcionarios)}/${vendido? 1 : 0}?KEY=eyJhbGciOiJIUzI1NiJ9.MTU.DMKNoK3xOEex2gQrgyFyGNB1qEE0CqstRSDFCAo60OI`);
+            console.log(ret.data.x);
+            toast.success('Imovel adicionado!') 
+            window.location.href = `/imovel/${ret.data.x}`;
+    
+    
+            setNome('');
+            setStatus('');
+            setRegiao('');
+            setLugar('');
+            setSuites('');
+            setComodos('');
+            setVagas('');
+            setTitulo('');
+            setSobre('');
+    
+        } 
+        
+        catch (error) {
+            console.error('Erro ao colocar imovel:', error);
+            toast.error('erro ao adicionar!!')
+        }
         
 
-        const formData = new FormData();
-        formData.append('img', capa);
-
-        let a = await axios.post('http://localhost:8080/multer', formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
-
-        const formData2 = new FormData();
-        formData2.append('img', galeria);
-
-        let b = await axios.post('http://localhost:8080/multer', formData2, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
-
-        const formData3 = new FormData();
-        formData3.append('img', galeria2);
-
-        let c = await axios.post('http://localhost:8080/multer', formData3, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
-
-        const formData4 = new FormData();
-        formData4.append('img', galeria3);
-
-        let d = await axios.post('http://localhost:8080/multer', formData4, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
-
-        const formData5 = new FormData();
-        formData5.append('img', galeria4);
-
-        let e = await axios.post('http://localhost:8080/multer', formData5, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
-
-
-
-        
-
-        let nomeCapa = a.data.fl
-        let nomeGaleria = b.data.fl
-        let nomeGaleria2 = c.data.fl
-        let nomeGaleria3 = d.data.fl
-        let nomeGaleria4 = e.data.fl
-
-        const galeriaFinal = `${nomeGaleria},${nomeGaleria2},${nomeGaleria3},${nomeGaleria4}`;
-
-        const ret = await axios.post(`http://localhost:8080/addImoveis/${nomeCapa}/${galeriaFinal}/${nome}/${status}/${regiao}/${lugar}/${suites}/${comodos}/${vagas}/${titulo}/${sobre}/${Math.ceil(Math.random()*funcionarios)}/${vendido? 1 : 0}?KEY=eyJhbGciOiJIUzI1NiJ9.MTU.DMKNoK3xOEex2gQrgyFyGNB1qEE0CqstRSDFCAo60OI`);
-        console.log(ret.data.x);
-
-        window.location.href = `/imovel/${ret.data.x}`;
-
-
-        setNome('');
-        setStatus('');
-        setRegiao('');
-        setLugar('');
-        setSuites('');
-        setComodos('');
-        setVagas('');
-        setTitulo('');
-        setSobre('');
 
     }
 
@@ -173,7 +183,7 @@ export default function NovoCard({ setExibir }) {
 
     useEffect(() => {
         testEx2()
-        select()});
+        select()}, []);
         
     return (
         <div className="addimovel">

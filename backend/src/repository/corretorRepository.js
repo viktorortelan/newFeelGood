@@ -2,11 +2,11 @@ import database from "./conn.js";
 
 export async function addCorretor(corretorOBJ) {
     let comando = `
-        INSERT INTO tb_corretores (nm_adm, ds_email, ds_senha) 
-                VALUES(?,?,?)
+        INSERT INTO tb_corretores (nm_adm, ds_email, ds_senha, ds_telefone) 
+                VALUES(?,?,?,?)
     `;
 
-    let registro = await database.query(comando, [corretorOBJ.nome, corretorOBJ.email, corretorOBJ.senha]);
+    let registro = await database.query(comando, [corretorOBJ.nome, corretorOBJ.email, corretorOBJ.senha, corretorOBJ.telefone]);
     let fim = registro[0];
     return fim.insertId;
 }
@@ -30,17 +30,18 @@ export async function totalCorretor() {
     return fim[0];
 }
 
-export async function updateCorretor(nome, email, senha, id) {
+export async function updateCorretor(nome, email, senha, telefone, id) {
     let comando = `
         UPDATE tb_corretores
         SET nm_adm = ?,
             ds_email = ?,
-            ds_senha = ?
+            ds_senha = ?,
+            ds_telefone = ?
         WHERE id_corretor = ?
     `;
     
     try {
-        let [registro] = await database.query(comando, [nome, email, senha, id]);
+        let [registro] = await database.query(comando, [nome, email, senha, telefone, id]);
         
         return registro.affectedRows;
     } catch (error) {
@@ -64,7 +65,8 @@ export async function loginCorretor(email, senha) {
     let comando = `
         select id_corretor   id,
                 nm_adm    nome,
-                ds_email  email
+                ds_email  email,
+                ds_telefone  telefone
         from tb_corretores
          where ds_email = ? and ds_senha = ?
     `;

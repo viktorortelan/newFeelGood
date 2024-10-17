@@ -29,11 +29,11 @@ endpoint.get('/total/corretor', async (req, resp) => {
     resp.send(registro);
 });
 
-endpoint.put('/atualizar/corretor/:nome/:email/:senha/:id', async (req, resp) => {
+endpoint.put('/atualizar/corretor/:nome/:email/:senha/:telefone/:id', async (req, resp) => {
     try {
-        const { nome, email, senha, id } = req.params;
+        const { nome, email, senha, telefone, id } = req.params;
 
-        let registro = await updateCorretor(nome, email, senha, id);
+        let registro = await updateCorretor(nome, email, senha, telefone, id);
         
         if (registro > 0) {
     

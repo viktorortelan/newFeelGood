@@ -4,15 +4,19 @@ import storage from 'local-storage';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 export default function TelaCorretor() {
     const [pesquisa, setPesquisa] = useState('')
     const [array, setArray] = useState([]);
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
-    const idCorretor = storage('corretor-logado').id_corretor; 
+    const [telefone, setTelefone] = useState('');
+    const idCorretor = storage('corretor-logado').id; 
     const [showPopup, setShowPopup] = useState(false);
-    const [editCorretor, setEditCorretor] = useState({ id: '', nome: '', email: '', senha: '' });
+    const [editCorretor, setEditCorretor] = useState({ id: '', nome: '', email: '',telefone: '', senha: '' });
+    const [TotalImovel, setTotalImovel] = useState('')
+    const [imovelVendido, setImovelVendido] = useState('')
     
     const navigate = useNavigate();
 
@@ -25,6 +29,7 @@ export default function TelaCorretor() {
             const CorretorLogado = storage('corretor-logado');
             setNome(CorretorLogado.nome);
             setEmail(CorretorLogado.email);
+            setTelefone(CorretorLogado.telefone);
         }
 
     }, [])
@@ -41,15 +46,32 @@ export default function TelaCorretor() {
         setArray(response.data);
       }
 
+    async function totalImovelCorretor() {
+        const response = await axios.get(`http://localhost:8080/totalImovel/porCorretor/${idCorretor}`);
+        let x = response.data
+        console.log(response.data)
+        setTotalImovel(x.total)
+    }
+
+    async function vendidoCorretor() {
+        const response = await axios.get(`http://localhost:8080/totalvendido/porCorretor/${idCorretor}`);
+        let x = response.data;
+        setImovelVendido(x.total_vendidos)
+    }
+
+
       useEffect(() => {
         imovelPorCorretor();
+        totalImovelCorretor();
+        vendidoCorretor();
       }, []);
 
       const handleEdit = (corretor) => {
         setEditCorretor({
-            id: corretor.id_corretor,
+            id: idCorretor,
             nome: corretor.nm_adm,
             email: corretor.ds_email,
+            telefone: corretor.ds_telefone,
             senha: corretor.ds_senha
         });
         setShowPopup(true);
@@ -57,13 +79,27 @@ export default function TelaCorretor() {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`http://localhost:8080/atualizar/corretor/${editCorretor.nome}/${editCorretor.email}/${editCorretor.senha}/${editCorretor.id}`);
+            await axios.put(`http://localhost:8080/atualizar/corretor/${editCorretor.nome}/${editCorretor.email}/${editCorretor.senha}/${editCorretor.telefone}/${idCorretor}`);
             setShowPopup(false);
-            imovelPorCorretor(); 
+            imovelPorCorretor();
+            toast.success('dados atualizados') 
         } catch (error) {
             console.error('Erro ao atualizar corretor:', error);
+            toast.error('erro ao atualizar dados')
         }
     };
+
+    const pdfURL = '/assets/doc/contrato_Feel_Good.pdf';  
+
+    function baixarPDF() {
+    const link = document.createElement('a');
+    link.href = pdfURL;
+    link.setAttribute('download', 'Contrato.pdf');  
+    document.body.appendChild(link);
+    link.click();  
+    document.body.removeChild(link);  
+}  
+
 
     return(
         <div className="telaCorretor">
@@ -98,25 +134,25 @@ export default function TelaCorretor() {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
                     </svg>
-                    <p><span>Telefone:</span> (11)9 95930-6324</p>
+                    <p><span>Telefone:</span> {telefone}</p>
                     </div>
                 </div>
 
                 <div className="direitaCard">
                     <button onClick={handleEdit}>Editar Dados</button>
-                    <button>Contrato</button>
+                    <button onClick={baixarPDF}>Contrato</button>
                 </div>
             </div>
 
             <div className="seccao2">
                 <div className="bloco">
                     <h1>Total de Imoveis</h1>
-                    <p>58 Imoveis</p>
+                    <p>{TotalImovel} Imoveis</p>
                 </div>
 
                 <div className="bloco">
                     <h1>Total de Vendidos</h1>
-                    <p>58 vendidos</p>
+                    <p>{imovelVendido} vendidos</p>
                 </div>
             </div>
 
@@ -172,6 +208,12 @@ export default function TelaCorretor() {
                             type="email"
                             value={editCorretor.email}
                             onChange={e => setEditCorretor({ ...editCorretor, email: e.target.value })}
+                        />
+                        <label>Telefone:</label>
+                        <input
+                            type="phone"
+                            value={editCorretor.telefone}
+                            onChange={e => setEditCorretor({ ...editCorretor, telefone: e.target.value })}
                         />
                         <label>Senha:</label>
                         <input

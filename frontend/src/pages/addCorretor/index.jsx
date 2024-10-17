@@ -9,17 +9,20 @@ export default function AddCorretor() {
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    const [telefone, setTelefone] = useState('')
 
     async function addCorretor() {
        try {
         const corretorObj = {
             nome: nome,
             email: email,
-            senha: senha
+            senha: senha,
+            telefone: telefone
         }
 
         let url = `http://localhost:8080/addCorretor`;
         let resp = await axios.post(url, corretorObj);
+        toast.success('corretor adicionado')
         setEmail('')
         setSenha('')
         setNome('')
@@ -66,6 +69,10 @@ export default function AddCorretor() {
                 <div className="seguranca">
                     <h1>email:</h1>
                     <input type="text" placeholder='email do corretor' value={email} onChange={e=> setEmail(e.target.value)}/>
+                </div>
+                <div className="seguranca">
+                    <h1>telefone:</h1>
+                    <input type="text" placeholder='telefone do corretor'value={telefone} onChange={e=> setTelefone(e.target.value)} />
                 </div>
                 <div className="seguranca">
                     <h1>senha:</h1>

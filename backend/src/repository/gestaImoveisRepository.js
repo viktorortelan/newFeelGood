@@ -86,12 +86,36 @@ export async function imovelPorCorretor(id) {
         FROM tb_infos_imoveis
         INNER JOIN tb_corretores 
         ON tb_infos_imoveis.corretor_responsavel = tb_corretores.id_corretor
-        where tb_corretores.id_corretor = ?
+        where id_corretor = ?
     `;
-
+  
     let registro = await database.query(comando, [id]);
     let x = registro[0];
     return x;
 }
 
+
+export async function totalImovelCorretor(id) {
+    let comando = `
+        SELECT COUNT(*) AS total
+        FROM tb_infos_imoveis
+        WHERE  corretor_responsavel = ?
+    `;
+
+    let registro = await database.query(comando, [id]);
+    let fim = registro[0];
+    return fim[0];
+}
+
+export async function vendidoCorretor(id) {
+    let comando = `
+        SELECT COUNT(*) AS total_vendidos
+        FROM tb_infos_imoveis
+        WHERE vendido = TRUE and corretor_responsavel = ?
+    `;
+
+    let registro = await database.query(comando, [id]);
+    let fim = registro[0];
+    return fim[0];
+}
 
