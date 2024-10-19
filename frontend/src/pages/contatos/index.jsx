@@ -5,7 +5,7 @@ import Cabecalho from '../../components/cabecalho'
 import Balao from '../../components/balaoSup';
 import { useState } from 'react';
 import emailjs from 'emailjs-com';
-// import toast, { Toaster } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 export default function Contatos() {
  const [nome, setNome] = useState('');
@@ -23,8 +23,8 @@ export default function Contatos() {
         };
         
         emailjs.send('service_8c7st3c', 'template_svt9t03', params, 'mrgLB4R-boLbQ_fZS')
-          .then(() => alert('Sua solicitação de suporte foi enviada com sucesso!'))
-          .catch(() => alert('Erro ao enviar a solicitação de suporte.'));
+          .then(() => toast.success('Sua solicitação de suporte foi enviada com sucesso!'))
+          .catch(() => toast.error('Erro ao enviar a solicitação de suporte.'));
           setEmail("") 
           setTelefone("") 
           setNome("") 

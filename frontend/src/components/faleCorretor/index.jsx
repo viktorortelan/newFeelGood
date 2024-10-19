@@ -1,6 +1,8 @@
 import './index.scss';
 import { useState } from 'react';
 import emailjs from 'emailjs-com';
+import { toast } from 'react-toastify';
+
 
 export default function Corretor() {
 
@@ -31,8 +33,8 @@ export default function Corretor() {
         };
         
         emailjs.send('service_8c7st3c', 'template_few7lr9', params, 'mrgLB4R-boLbQ_fZS')
-          .then(() => alert('Email enviado para: '))
-          .catch(() => alert('Erro ao enviar email!'));
+          .then(() => toast.success('Email enviado para: '))
+          .catch(() => toast.error('Erro ao enviar email!'));
           setEmail("") 
           setTelefone("") 
           setNome("") 

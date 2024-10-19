@@ -78,7 +78,7 @@ export default function InfoImovel() {
                     <div className="risco"></div>
                     <h1 id='preco'>Preço sob consulta </h1>
                     <div className="risco"></div>
-                    <Link to="/" id='falaCorretor'>{obj.st_status}</Link>
+                    <h1 id='falaCorretor'> {obj.st_status} </h1>
                 </div>
                 
             </div>
