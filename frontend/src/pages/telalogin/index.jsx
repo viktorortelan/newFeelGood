@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginADM } from '../../api/admApi';
 import storage from 'local-storage';
-
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function Telalogin() {
@@ -44,7 +44,7 @@ export default function Telalogin() {
                         <div className="infos">
 
                         <div className="textin">
-                            <img src="/assets/images/loganTCC7.png" alt="logo empresa" />  
+                            <Link to='/'><img src="/assets/images/loganTCC7.png" alt="logo empresa" />  </Link>
                             <h1>Feel good inc.</h1>
                         </div>
 

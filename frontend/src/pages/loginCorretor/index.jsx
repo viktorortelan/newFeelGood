@@ -20,14 +20,14 @@ export default function LoginCorretor() {
           storage('corretor-logado', infos); 
           toast.success(`Bem vindo Corretor`)
           navigate('/telaCorretor');
-             
+               
         } 
         catch (err) {
             if(err.response)
                 toast.error(err.response.data.err);
             else 
-                toast.error(err.message);
-        }
+                toast.error(err.message);          
+        }    
 
     }
 
