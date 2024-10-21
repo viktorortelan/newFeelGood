@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ComentarioFeed from '../../components/comentario';
+
 
 export default function TelaCliente() {
 
@@ -18,6 +20,7 @@ export default function TelaCliente() {
     const [email, setEmail] = useState('')
     const [telefone, setTelefone] = useState('');
     const [showEditPopup, setShowEditPopup] = useState(false);
+    const [array, setArray] = useState([]);
     
     const idCliente = storage('cliente-logado').id; 
     const navigate = useNavigate();
@@ -75,6 +78,17 @@ export default function TelaCliente() {
             toast.error('Erro ao adicionar comentario');
         }
     }
+
+
+    async function puxarFeed() {
+            const response = await axios.get(`http://localhost:8080/aparecer/individual/${idCliente}`);
+            let x = response.data;
+            setArray(x);
+    }
+
+    useEffect(() => {
+        puxarFeed()
+    }, []);
 
     return (
         <div className="pgcliente">
@@ -173,6 +187,19 @@ export default function TelaCliente() {
                     <input type="text" placeholder='gostei muito' value={comentario} onChange={e => setComentario(e.target.value)} />
                     <button onClick={addFeed}>Enviar</button>
                 </div>
+            </div>
+
+            <div className="avalicoes">
+                    <div className="protecao">
+                        {array.map(item =>
+                        
+                        <ComentarioFeed
+                            nome={item.nm_cliente}
+                            comentario={item.ds_comentario}
+                        />
+        
+                        )} 
+                    </div>
             </div>
             <Rodape />
         </div>

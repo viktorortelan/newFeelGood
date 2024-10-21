@@ -34,5 +34,5 @@ export async function apareceIndividual(id) {
 
     let registro = await database.query(comando, [id]);
     let fim = registro[0];
-    return fim[0];
+    return fim;
 }
