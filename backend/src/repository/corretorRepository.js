@@ -66,7 +66,8 @@ export async function loginCorretor(email, senha) {
         select id_corretor   id,
                 nm_adm    nome,
                 ds_email  email,
-                ds_telefone  telefone
+                ds_telefone  telefone,
+                nm_foto foto
         from tb_corretores
          where ds_email = ? and ds_senha = ?
     `;

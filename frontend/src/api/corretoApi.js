@@ -10,6 +10,7 @@ export async function loginCorretor(email, senha) {
     const response = await api.post('/loginCorretor', {
         email: email,
         senha: senha
+        
     });
 
     return response.data;

@@ -13,17 +13,21 @@ import ComentarioFeed from '../../components/comentario';
 
 
 export default function TelaCliente() {
-
     const [comentario, setComentario] = useState('')
-
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
     const [telefone, setTelefone] = useState('');
     const [showEditPopup, setShowEditPopup] = useState(false);
     const [array, setArray] = useState([]);
-    
     const idCliente = storage('cliente-logado').id; 
     const navigate = useNavigate();
+
+    const [foto, setFoto] = useState(null);
+    const [nameImg, setNameImg] = useState('');
+
+    function clickFoto() {
+        document.getElementById("foto").click();
+    }
 
     useEffect(() => {
         if(storage('cliente-logado')) {
@@ -151,6 +155,9 @@ export default function TelaCliente() {
                 <div className="edit-popup">
                     <div className="popup-content">
                         <h2>Editar Dados</h2>
+                        <div style={{backgroundImage: `url(${foto != null ? URL.createObjectURL(foto) : ''})`, backgroundPosition: "center", backgroundSize: "cover"}} className='preview'></div>
+                        <div onClick={clickFoto} className='foto'><p>Foto de perfil</p></div>
+                        <input onChange={e => setFoto(e.target.files[0])} id='foto' type="file" style={{display: "none"}}/>
                         <input
                             type="text"
                             placeholder="Nome"

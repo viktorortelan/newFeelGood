@@ -25,7 +25,9 @@ export default function InfoImovel() {
             setObj(value[0]);
         }
 
-        useEffect(() => {verify()});
+        useEffect(() => {
+            verify()
+        });
 
 
         const settings = {
@@ -48,7 +50,7 @@ export default function InfoImovel() {
                 
                    <img src="/assets/images/gafisa.jpg" alt="" /> 
                 
-                <div className="info">
+                <div id='push' className="info">
                     <Link to="/" id='pronto'>{obj.st_status}</Link>
                     <p id='local'>{obj.lc_localizacao}</p>
                     <div className="risco"></div>

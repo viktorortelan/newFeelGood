@@ -10,6 +10,8 @@ import viewClient from "../repository/viewClientRepository.js";
 import verifyId from '../repository/verifyIdRepository.js'
 import selectCount from "../repository/selectCountRepository.js";
 import { readToken } from "../utils/jwt.js";
+import addPictureCorretor from "../repository/addPictuteCorretorRepository.js";
+import find from "../repository/findNameImgRepository.js";
 
 const endpoint = Router();
 const m = multer({ storage });
@@ -84,6 +86,22 @@ endpoint.get('/readToken/:token', (req, resp) => {
   const { token } = req.params;
   const x = readToken(token);
   resp.send(x);
+});
+
+endpoint.put('/addPictureCorretor/:value/:reference', async (req, resp) => {
+
+  const { value, reference } = req.params;
+  const x = await addPictureCorretor(value, reference);
+  resp.send(x);
+
+});
+
+endpoint.get('/find/:id', async (req, resp) => {
+
+  const { id } = req.params;
+  const x = await find(id);
+  resp.send(x);
+  
 });
 
 

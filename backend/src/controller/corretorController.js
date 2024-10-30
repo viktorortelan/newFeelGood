@@ -36,6 +36,7 @@ endpoint.put('/atualizar/corretor/:nome/:email/:senha/:telefone/:id', async (req
         let registro = await updateCorretor(nome, email, senha, telefone, id);
         
         if (registro > 0) {
+            
     
             resp.status(200).send({ message: 'Corretor atualizado com sucesso!' });
         } else {

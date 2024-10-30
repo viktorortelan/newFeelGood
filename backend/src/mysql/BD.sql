@@ -15,12 +15,14 @@ img_quatro varchar(300)
 
 
 
-create  table tb_corretores(
+create table tb_corretores(
 id_corretor int primary key auto_increment,
 nm_adm varchar(200),
 ds_email varchar(200),
-ds_senha varchar(200)
+ds_senha varchar(200),
+ds_telefone varchar(20) unique
 );
+
 
 select*from tb_corretores;
 
@@ -67,13 +69,14 @@ WHERE vendido = TRUE;
 
 SELECT COUNT(*) AS total_nao_vendidos
 FROM tb_infos_imoveis
-WHERE vendido = FALSE;
+WHERE  corretor_responsavel = 14;
 
 select*from tb_infos_imoveis;
 
 SELECT tb_infos_imoveis.id_cardImovel AS ID, 
 		tb_infos_imoveis.nm_apartamento AS "Imóvel", 
-		tb_infos_imoveis.st_status AS Status, 
+		tb_infos_imoveis.st_status AS Status,
+        tb_infos_imoveis.vendido as vendeu,
 		tb_corretores.nm_adm AS Corretor
 FROM tb_infos_imoveis
 INNER JOIN tb_corretores
@@ -147,6 +150,15 @@ ds_senha varchar(200)
 insert into tb_ADM(nm_adm, ds_email, ds_senha)
 values ('adm' ,'adm', '1');
 
+delete from tb_feed_backs where id_feedBack =  ?;
 
 
+CREATE TABLE tb_feed_backs (
+    id_feedBack INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    ds_comentario VARCHAR(1000),
+    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
+);
 
+
+select*from tb_feed_backs;

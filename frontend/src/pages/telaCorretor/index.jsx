@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 export default function TelaCorretor() {
+
     const [pesquisa, setPesquisa] = useState('')
     const [array, setArray] = useState([]);
     const [nome, setNome] = useState('');
@@ -17,6 +18,38 @@ export default function TelaCorretor() {
     const [editCorretor, setEditCorretor] = useState({ id: '', nome: '', email: '',telefone: '', senha: '' });
     const [TotalImovel, setTotalImovel] = useState('')
     const [imovelVendido, setImovelVendido] = useState('')
+    const [foto, setFoto] = useState(null);
+    const [nameImg, setNameImg] = useState('');
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    async function findNameImg() {
+        const x = await axios.get(`http://localhost:8080/find/${idCorretor}`);
+        setNameImg(x.data.nm_foto);
+    }
     
     const navigate = useNavigate();
 
@@ -30,6 +63,7 @@ export default function TelaCorretor() {
             setNome(CorretorLogado.nome);
             setEmail(CorretorLogado.email);
             setTelefone(CorretorLogado.telefone);
+            findNameImg()
         }
 
     }, [])
@@ -79,15 +113,42 @@ export default function TelaCorretor() {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`http://localhost:8080/atualizar/corretor/${editCorretor.nome}/${editCorretor.email}/${editCorretor.senha}/${editCorretor.telefone}/${idCorretor}`);
-            setShowPopup(false);
-            imovelPorCorretor();
-            toast.success('dados atualizados') 
+
+            if (foto != null) {
+                const formData = new FormData();
+                formData.append('img', foto);
+            
+                const x = await axios.post(`http://localhost:8080/multer`, formData, {
+                    headers: {
+                        "Content-Type": "multparts/formdata"
+                    }
+                });
+
+                setShowPopup(false);
+                await axios.put(`http://localhost:8080/addPictureCorretor/${x.data.fl}/${idCorretor}`);
+                toast.success('foto atualizada');
+
+            }
+
+            if(nome.length > 0  && email.length > 0 && telefone.length > 0 ) {
+                await axios.put(`http://localhost:8080/atualizar/corretor/${editCorretor.nome}/${editCorretor.email}/${editCorretor.senha}/${editCorretor.telefone}/${idCorretor}`);
+           
+                setShowPopup(false);
+                imovelPorCorretor();
+                toast.success('dados atualizados');
+            }
+
+            else {
+                return 
+            }
+
+           
+           
         } catch (error) {
             console.error('Erro ao atualizar corretor:', error);
-            toast.error('erro ao atualizar dados')
+            
         }
-    };
+    }; 
 
     const pdfURL = '/assets/doc/contrato_Feel_Good.pdf';  
 
@@ -99,6 +160,10 @@ export default function TelaCorretor() {
     link.click();  
     document.body.removeChild(link);  
 }  
+
+    function clickFoto() {
+        document.getElementById("foto").click();
+    }
 
 
     return(
@@ -114,7 +179,7 @@ export default function TelaCorretor() {
 
                 <div className="direita">
                     <button onClick={sair}>Sair</button>
-                    <img src="/assets/images/viktor.png" alt="" />
+                    <img src={`/imgs/${nameImg}`} alt="" style={{borderRadius: "50%", width: "75px", height: "75px"}}/>
                 </div>
             </div>
 
@@ -197,6 +262,11 @@ export default function TelaCorretor() {
                 <div className="popup">
                     <div className="popup-content">
                         <h2>Editar Corretor</h2>
+
+                        <div style={{backgroundImage: `url(${foto != null ? URL.createObjectURL(foto) : ''})`, backgroundPosition: "center", backgroundSize: "cover"}} className='preview'></div>
+                        <div onClick={clickFoto} className='foto'><p>Foto de perfil</p></div>
+                        <input onChange={e => setFoto(e.target.files[0])} id='foto' type="file" style={{display: "none"}}/>
+
                         <label>Nome:</label>
                         <input
                             type="text"
@@ -225,6 +295,8 @@ export default function TelaCorretor() {
                             <button onClick={handleUpdate}>Confirmar</button>
                             <button onClick={() => setShowPopup(false)}>Cancelar</button>
                         </div>
+
+                        
                     </div>
                 </div>
             )}
