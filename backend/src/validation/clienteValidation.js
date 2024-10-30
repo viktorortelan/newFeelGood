@@ -1,3 +1,5 @@
+import database from "../repository/conn.js";
+
 
 export async function emailExistente(email, id) {
     const query = 'SELECT COUNT(*) as count FROM tb_cliente WHERE ds_email = ? AND id_cliente != ?';

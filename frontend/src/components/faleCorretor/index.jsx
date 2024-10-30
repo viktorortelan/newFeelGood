@@ -33,7 +33,7 @@ export default function Corretor() {
         };
         
         emailjs.send('service_8c7st3c', 'template_few7lr9', params, 'mrgLB4R-boLbQ_fZS')
-          .then(() => toast.success('Email enviado para: '))
+          .then(() => toast.success('Email enviado para '))
           .catch(() => toast.error('Erro ao enviar email!'));
           setEmail("") 
           setTelefone("") 

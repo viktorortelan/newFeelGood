@@ -20,15 +20,25 @@ export default function TelaCliente() {
     const [showEditPopup, setShowEditPopup] = useState(false);
     const [array, setArray] = useState([]);
     const idCliente = storage('cliente-logado').id; 
+    const [foto, setFoto] = useState(null);
+    const [nameImg, setNameImg] = useState(null);
+
+
+
+    
     const navigate = useNavigate();
 
-    const [foto, setFoto] = useState(null);
-    const [nameImg, setNameImg] = useState('');
+
+
+    async function findImg() {
+        const x = await axios.get(`http://localhost:8080/findImgCliente/${idCliente}`);
+        setNameImg(x.data.nm_foto);
+    }
 
     function clickFoto() {
         document.getElementById("foto").click();
     }
-
+   
     useEffect(() => {
         if(storage('cliente-logado')) {
             navigate('/telaCliente')
@@ -44,7 +54,7 @@ export default function TelaCliente() {
 
     function sairClick() {
         storage.remove('cliente-logado');
-        navigate('/loginCliente')
+        navigate('/loginCliente');
     }
 
     function handleEditClick() {
@@ -53,14 +63,41 @@ export default function TelaCliente() {
 
     async function handleConfirmEdit() {
         try {
-            await axios.put(`http://localhost:8080/atualizar/cliente/${encodeURIComponent(nome)}/${encodeURIComponent(email)}/${encodeURIComponent(telefone)}/${idCliente}`);
-            toast.success('Dados atualizados com sucesso!');
-            setShowEditPopup(false);
-            const clienteAtualizado = { nome, email, telefone, id: idCliente };
-            storage('cliente-logado', clienteAtualizado);  
+
+            if (foto != null) {
+
+                const formData = new FormData();
+                formData.append('img', foto);
+            
+                const x = await axios.post(`http://localhost:8080/multer`, formData, {
+                    headers: {
+                        "Content-Type": "multparts/formdata"
+                    }
+                });
+
+                const z = axios.put(`http://localhost:8080/addPictureCliente/${x.data.fl}/${idCliente}`);
+
+                setShowEditPopup(false);
+                toast.success('Foto alterada!');
+                
+            }
+
+            if(nome.length > 0  && email.length > 0 && telefone.length > 0 ) {
+                await axios.put(`http://localhost:8080/atualizar/cliente/${encodeURIComponent(nome)}/${encodeURIComponent(email)}/${encodeURIComponent(telefone)}/${idCliente}`);
+                toast.success('Dados atualizados com sucesso!');
+                setShowEditPopup(false);
+                const clienteAtualizado = { nome, email, telefone, id: idCliente };
+                storage('cliente-logado', clienteAtualizado);  
+            }
+
+            else {
+                return
+            }
+        
+
         } catch (error) {
             console.error('Erro ao atualizar dados:', error);
-            toast.error('Erro ao atualizar os dados.');
+           
         }
     }
 
@@ -73,13 +110,13 @@ export default function TelaCliente() {
    
     async function addFeed() {
         try {
-            await axios.post(`http://localhost:8080/addFeed/${idCliente}/${comentario}`);
+            await axios.post(`http://localhost:8080/addFeed/${idCliente}/${nameImg}/${comentario}`);
             toast.success('Comenatario adicionado');
             setComentario('')
         } 
         catch (error) {
             console.error('Erro ao add feedback:', error);
-            toast.error('Erro ao adicionar comentario');
+            toast.error('Erro ao adicionar comentario' + error);
         }
     }
 
@@ -92,6 +129,8 @@ export default function TelaCliente() {
 
     useEffect(() => {
         puxarFeed()
+        findImg();
+
     }, []);
 
     return (
@@ -101,7 +140,7 @@ export default function TelaCliente() {
 
             <div className="seccao1">
                 <div className="texto">
-                    <img id='usuario' src="/assets/images/viktor.png" alt="usuario" />
+                    <img id='usuario' style={{borderRadius: "50%", width: "75px", height: "75px", border: "1px solid #00000050", boxShadow: "0px 0px 10px #00000050"}} src={`/imgs/${nameImg}`} alt="usuario" />
                     <div className="intro">
                         <h1>Bem-vindo, <span>{nome}</span></h1>
                         <div className="email">
@@ -201,8 +240,9 @@ export default function TelaCliente() {
                         {array.map(item =>
                         
                         <ComentarioFeed
-                            nome={item.nm_cliente}
-                            comentario={item.ds_comentario}
+                            nome={item.nome_cliente}
+                            comentario={item.comentario}
+                            foto={item.nome_foto}
                         />
         
                         )} 

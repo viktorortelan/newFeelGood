@@ -20,7 +20,7 @@ export default function Balao() {
                 <div className="menu">
                     <button onClick={toggleMenu} className="close-button">X</button>
                     <ul>
-                        <li><Link to="/">Nossos Termos</Link></li>
+                        <li><Link to="/">Home</Link></li>
                         <li id='corretor'><CorretorPopup/></li>
                         <li><Link to="/sobree">Conheça Nós</Link></li>
                     </ul>

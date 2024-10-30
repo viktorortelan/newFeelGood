@@ -10,8 +10,11 @@ import viewClient from "../repository/viewClientRepository.js";
 import verifyId from '../repository/verifyIdRepository.js'
 import selectCount from "../repository/selectCountRepository.js";
 import { readToken } from "../utils/jwt.js";
-import addPictureCorretor from "../repository/addPictuteCorretorRepository.js";
+import addPictureCliente from "../repository/addPictureClienteRepository.js";
+import addPictureCorretor from "../repository/addPictureCorretorRepository.js";
 import find from "../repository/findNameImgRepository.js";
+import findImgCliente from "../repository/findNameImgClienteRepository.js";
+
 
 const endpoint = Router();
 const m = multer({ storage });
@@ -96,10 +99,26 @@ endpoint.put('/addPictureCorretor/:value/:reference', async (req, resp) => {
 
 });
 
+endpoint.put('/addPictureCliente/:value/:reference', async (req, resp) => {
+
+  const { value, reference } = req.params;
+  const x = await addPictureCliente(value, reference);
+  resp.send(x);
+
+});
+
 endpoint.get('/find/:id', async (req, resp) => {
 
   const { id } = req.params;
   const x = await find(id);
+  resp.send(x);
+  
+});
+
+endpoint.get('/findImgCliente/:id', async (req, resp) => {
+
+  const { id } = req.params;
+  const x = await findImgCliente(id);
   resp.send(x);
   
 });

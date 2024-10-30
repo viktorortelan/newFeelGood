@@ -289,11 +289,11 @@ export default function TelaCorretor() {
                         <input
                             type="password"
                             value={editCorretor.senha}
-                            onChange={e => setEditCorretor({ ...editCorretor, senha: e.target.value })}
+                            onChange={e => setEditCorretor({ ...editCorretor, senha: e.target.value })} 
                         />
                         <div className="popup-buttons">
                             <button onClick={handleUpdate}>Confirmar</button>
-                            <button onClick={() => setShowPopup(false)}>Cancelar</button>
+                            <buton onClick={() => setShowPopup(false)}>Cancelar</buton>
                         </div>
 
                         
