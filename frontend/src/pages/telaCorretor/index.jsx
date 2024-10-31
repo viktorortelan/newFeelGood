@@ -21,31 +21,6 @@ export default function TelaCorretor() {
     const [foto, setFoto] = useState(null);
     const [nameImg, setNameImg] = useState('');
 
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     async function findNameImg() {
         const x = await axios.get(`http://localhost:8080/find/${idCorretor}`);
         setNameImg(x.data.nm_foto);

@@ -31,7 +31,6 @@ export default function Telalogin() {
 
     }
 
-
     return(
         <div className="tela-login" style={{backgroundImage:  `url(${fundo})` }}>
             
@@ -70,7 +69,6 @@ export default function Telalogin() {
 
                             <p id='copyright'> ©feelgoodind copyright</p>
                         </div>
-                
             </div>
         </div>
     )

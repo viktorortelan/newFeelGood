@@ -105,7 +105,7 @@ export default function NovoCard({ setExibir }) {
         
         catch (error) {
             console.error('Erro ao colocar imovel:', error);
-            toast.error('erro ao adicionar!!')
+            toast.error('erro ao adicionar!!' + error)
         }
         
 
@@ -183,7 +183,7 @@ export default function NovoCard({ setExibir }) {
 
     useEffect(() => {
         testEx2()
-        select()}, []);
+        select()});
         
     return (
         <div className="addimovel">

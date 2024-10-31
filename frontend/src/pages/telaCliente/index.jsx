@@ -22,17 +22,21 @@ export default function TelaCliente() {
     const idCliente = storage('cliente-logado').id; 
     const [foto, setFoto] = useState(null);
     const [nameImg, setNameImg] = useState(null);
-
-
-
+    const [hiden, setHiden] = useState('');
     
     const navigate = useNavigate();
 
-
+    function findHiden() {
+        if (nameImg != null) {
+            setHiden('0');
+        } else {
+            setHiden('0');
+        }
+    }
 
     async function findImg() {
         const x = await axios.get(`http://localhost:8080/findImgCliente/${idCliente}`);
-        setNameImg(x.data.nm_foto);
+          setNameImg(x.data.nm_foto);
     }
 
     function clickFoto() {
@@ -110,7 +114,7 @@ export default function TelaCliente() {
    
     async function addFeed() {
         try {
-            await axios.post(`http://localhost:8080/addFeed/${idCliente}/${nameImg}/${comentario}`);
+            await axios.post(`http://localhost:8080/addFeed/${idCliente}/${comentario}`);
             toast.success('Comenatario adicionado');
             setComentario('')
         } 
@@ -130,8 +134,13 @@ export default function TelaCliente() {
     useEffect(() => {
         puxarFeed()
         findImg();
+       
 
     }, []);
+
+    useEffect(() => {
+        findHiden();
+    });
 
     return (
         <div className="pgcliente">
@@ -140,7 +149,9 @@ export default function TelaCliente() {
 
             <div className="seccao1">
                 <div className="texto">
-                    <img id='usuario' style={{borderRadius: "50%", width: "75px", height: "75px", border: "1px solid #00000050", boxShadow: "0px 0px 10px #00000050"}} src={`/imgs/${nameImg}`} alt="usuario" />
+                  
+                    <img id='usuario' style={{zIndex: `${hiden}` , borderRadius: "50%", width: "75px", height: "75px", border: "1px solid #00000050", boxShadow: "0px 0px 10px #00000050"}} src={`/imgs/${nameImg != null ? nameImg : '5800.687645408709.jpg'}`} />
+                  
                     <div className="intro">
                         <h1>Bem-vindo, <span>{nome}</span></h1>
                         <div className="email">

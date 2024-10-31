@@ -15,7 +15,6 @@ import addPictureCorretor from "../repository/addPictureCorretorRepository.js";
 import find from "../repository/findNameImgRepository.js";
 import findImgCliente from "../repository/findNameImgClienteRepository.js";
 
-
 const endpoint = Router();
 const m = multer({ storage });
 

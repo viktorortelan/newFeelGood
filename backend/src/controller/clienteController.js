@@ -24,9 +24,7 @@ endpoints.post('/login', async (req, resp) => {
         resp.status(404).send({
             err: err.message
         })
-
     }
-
 })
 
 endpoints.post('/cliente', async (req, resp) => {

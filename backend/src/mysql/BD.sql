@@ -1,6 +1,6 @@
 create database feel_good_db;
 use feel_good_db;
-
+drop database feel_good_db;
 use feel_good_db;
 
 -- tabela para adicionar as images das informações dos imoveis.
@@ -13,16 +13,14 @@ img_tres varchar(300),
 img_quatro varchar(300)
 );
 
-
-
 create table tb_corretores(
 id_corretor int primary key auto_increment,
 nm_adm varchar(200),
 ds_email varchar(200),
 ds_senha varchar(200),
-ds_telefone varchar(20) unique
+ds_telefone varchar(20) unique,
+nm_foto varchar(200)
 );
-
 
 select*from tb_corretores;
 
@@ -32,11 +30,8 @@ set nm_adm = ? ,
     ds_senha = ?
 where id_corretor = ?;
 
-
 INSERT INTO tb_corretores (nm_adm, ds_email, ds_senha) VALUES
 ("rola", "rola@fdhsagfhds", "15456");
-
-
 
 -- tabela de informações dos imoveis junto com a chave estrageira para pegar as imagens.
 
@@ -62,7 +57,6 @@ SELECT COUNT(*) AS total_imoveis FROM tb_infos_imoveis;
 SELECT COUNT(*) AS total_corretores FROM tb_corretores;
 SELECT COUNT(*) AS total_clientes FROM tb_cliente;
 
-
 SELECT COUNT(*) AS total_vendidos
 FROM tb_infos_imoveis
 WHERE vendido = TRUE;
@@ -82,7 +76,6 @@ FROM tb_infos_imoveis
 INNER JOIN tb_corretores
 ON tb_infos_imoveis.corretor_responsavel = tb_corretores.id_corretor;
 
-
 SELECT i.id_cardImovel, 
        i.nm_apartamento, 
        i.st_status, 
@@ -92,7 +85,6 @@ SELECT i.id_cardImovel,
 FROM tb_infos_imoveis i
 INNER JOIN tb_corretores c
 ON i.corretor_responsavel = c.id_corretor;
-
 
 select * from tb_infos_imoveis;
 drop table tb_infos_imoveis;
@@ -111,7 +103,8 @@ id_cliente int primary key auto_increment,
 nm_cliente varchar(200),
 ds_email varchar(200) unique,
 ds_telefone varchar(50) unique,
-dt_cadastro date
+dt_cadastro date,
+nm_foto varchar(200)
 );
 
 select * from tb_infos_imoveis;
@@ -125,8 +118,6 @@ where ds_email = "tonin";
 select * from tb_cliente;
 
 select*from tb_loginADM;
-
-
 
 select * from tb_cliente;
 
@@ -152,7 +143,6 @@ values ('adm' ,'adm', '1');
 
 delete from tb_feed_backs where id_feedBack =  ?;
 
-
 CREATE TABLE tb_feed_backs (
     id_feedBack INT AUTO_INCREMENT PRIMARY KEY,
     id_cliente INT,
@@ -160,5 +150,5 @@ CREATE TABLE tb_feed_backs (
     FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
 );
 
-
+drop table tb_feed_backs;
 select*from tb_feed_backs;

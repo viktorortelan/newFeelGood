@@ -115,8 +115,9 @@ export default function Sobre() {
                         {array.map(item =>
                     
                             <ComentarioFeed
-                                nome={item.nm_cliente}
-                                comentario={item.ds_comentario}
+                                nome={item.nome_cliente}
+                                comentario={item.comentario}
+                                foto={item.nome_foto}
                             />
                
                         )} 
