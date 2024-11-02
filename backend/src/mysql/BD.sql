@@ -151,4 +151,5 @@ CREATE TABLE tb_feed_backs (
 );
 
 drop table tb_feed_backs;
+
 select*from tb_feed_backs;

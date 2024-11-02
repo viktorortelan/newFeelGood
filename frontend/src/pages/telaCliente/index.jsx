@@ -23,7 +23,7 @@ export default function TelaCliente() {
     const [foto, setFoto] = useState(null);
     const [nameImg, setNameImg] = useState(null);
     const [hiden, setHiden] = useState('');
-    
+
     const navigate = useNavigate();
 
     function findHiden() {
@@ -36,7 +36,15 @@ export default function TelaCliente() {
 
     async function findImg() {
         const x = await axios.get(`http://localhost:8080/findImgCliente/${idCliente}`);
-          setNameImg(x.data.nm_foto);
+        if (x.data.nm_foto != null) {
+          const z = await axios.get(`http://localhost:8080/img/${x.data.nm_foto}`)
+          setNameImg(z.data.url);
+          console.log(z.data.url);
+        } else {
+            setNameImg(x.data.nm_foto);
+        }
+       
+        
     }
 
     function clickFoto() {
@@ -140,7 +148,7 @@ export default function TelaCliente() {
 
     useEffect(() => {
         findHiden();
-    });
+    }, []);
 
     return (
         <div className="pgcliente">
@@ -150,7 +158,7 @@ export default function TelaCliente() {
             <div className="seccao1">
                 <div className="texto">
                   
-                    <img id='usuario' style={{zIndex: `${hiden}` , borderRadius: "50%", width: "75px", height: "75px", border: "1px solid #00000050", boxShadow: "0px 0px 10px #00000050"}} src={`/imgs/${nameImg != null ? nameImg : '5800.687645408709.jpg'}`} />
+                    <img id='usuario' style={{zIndex: `${hiden}` , borderRadius: "50%", width: "75px", height: "75px", border: "1px solid #00000050", boxShadow: "0px 0px 10px #00000050"}} src={`${nameImg != null ? nameImg : '/imgs/6256.254928160821.png'}`} />
                   
                     <div className="intro">
                         <h1>Bem-vindo, <span>{nome}</span></h1>

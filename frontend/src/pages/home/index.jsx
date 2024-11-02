@@ -27,7 +27,7 @@ export default function Home({ exibir }) {
 
     }
 
-    useEffect(() => { a() });
+    useEffect(() => { a() }, []);
 
 
     return (

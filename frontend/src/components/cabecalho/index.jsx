@@ -10,7 +10,7 @@ export default function Cabecalho() {
         <Link to="/">Home</Link>
         <Link to="/contatos">Contatos</Link>
         <Link to="/sobree">Sobre nós</Link>
-        <Link to="/cadastroCliente">Cadastro</Link>
+        <Link to="/cadastroCliente">cadastro</Link>
         <Link to="/telaCliente">Entrar</Link>
     </div>
     )

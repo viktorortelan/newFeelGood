@@ -14,8 +14,12 @@ export default function InfoImovel() {
         
         const [obj, setObj] = useState({});
         const [galery, setGalery] = useState([]);
-
-       async function verify() {
+        const [galery1, setGalery1] = useState('');
+        const [galery2, setGalery2] = useState('');
+        const [galery3, setGalery3] = useState('');
+        const [galery4, setGalery4] = useState('');
+        
+        async function verify() {
             const x = await axios.get(`http://localhost:8080/verifyId/${id}`);
             const value = x.data;
             console.log(value[0])
@@ -25,9 +29,31 @@ export default function InfoImovel() {
             setObj(value[0]);
         }
 
+        async function v() {
+            const z = await axios.get(`http://localhost:8080/img/${galery[0]}`)
+            setGalery1(z.data.url)
+            console.log(galery1);
+
+            const a = await axios.get(`http://localhost:8080/img/${galery[1]}`)
+            setGalery2(a.data.url)
+            console.log(galery2);
+
+            const b = await axios.get(`http://localhost:8080/img/${galery[2]}`)
+            setGalery3(b.data.url)
+            console.log(galery3);
+
+            const c = await axios.get(`http://localhost:8080/img/${galery[3]}`)
+            setGalery4(c.data.url)
+            console.log(galery4);
+        }
+
         useEffect(() => {
-            verify()
-        });
+            verify();
+        }, []);
+
+        useEffect(() => {
+            v();
+        })
 
 
         const settings = {
@@ -92,16 +118,16 @@ export default function InfoImovel() {
                 <div className="carousel-container">
                     <div className="carousel-slider">
                         <div className="carousel-slide">
-                            <img src={`/imgs/${galery[0]}`} />
+                            <img src={`${galery1}`} />
                         </div>
                         <div className="carousel-slide">
-                            <img src={`/imgs/${galery[1]}`} />
+                            <img src={`${galery2}`} />
                         </div>
                         <div className="carousel-slide">
-                            <img src={`/imgs/${galery[2]}`} />
+                            <img src={`${galery3}`} />
                         </div>
                         <div className="carousel-slide">
-                             <img src={`/imgs/${galery[3]}`} />
+                             <img src={`${galery4}`} />
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ export default function Sobre() {
         const api = await axios.get('http://localhost:8080/aparecerFeed');
         let values = api.data;
         setArray(values)
-        console.log(array)
+        console.log(array);
     }
 
     useEffect(() => {

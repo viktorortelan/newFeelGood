@@ -70,7 +70,9 @@ export default function LoginCliente() {
                 </div>
 
                 <p id='copyright'> ©feelgoodind copyright</p>
+
             </div> 
+
             <div className="direita" style={{backgroundImage: `url(${direita})`}}></div>
         </div>
 

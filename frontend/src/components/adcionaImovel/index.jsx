@@ -73,10 +73,6 @@ export default function NovoCard({ setExibir }) {
                 }
             });
     
-    
-    
-            
-    
             let nomeCapa = a.data.fl
             let nomeGaleria = b.data.fl
             let nomeGaleria2 = c.data.fl
@@ -105,7 +101,7 @@ export default function NovoCard({ setExibir }) {
         
         catch (error) {
             console.error('Erro ao colocar imovel:', error);
-            toast.error('erro ao adicionar!!' + error)
+            toast.error('erro ao adicionar!!')
         }
         
 

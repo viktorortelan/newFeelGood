@@ -21,10 +21,18 @@ export default function TelaCorretor() {
     const [foto, setFoto] = useState(null);
     const [nameImg, setNameImg] = useState('');
 
+
     async function findNameImg() {
         const x = await axios.get(`http://localhost:8080/find/${idCorretor}`);
-        setNameImg(x.data.nm_foto);
+        if (x.data.nm_foto != null) {
+            const z = await axios.get(`http://localhost:8080/img/${x.data.nm_foto}`);
+            setNameImg(z.data.url);
+        } else {
+            setNameImg(x.data.nm_foto);
+        }   
     }
+        
+        
     
     const navigate = useNavigate();
 
@@ -154,7 +162,7 @@ export default function TelaCorretor() {
 
                 <div className="direita">
                     <button onClick={sair}>Sair</button>
-                    <img src={`/imgs/${nameImg}`} alt="" style={{borderRadius: "50%", width: "75px", height: "75px"}}/>
+                    <img src={`${nameImg != null ? nameImg : '/imgs/6256.254928160821.png'}`} alt="" style={{borderRadius: "50%", width: "75px", height: "75px"}}/>
                 </div>
             </div>
 

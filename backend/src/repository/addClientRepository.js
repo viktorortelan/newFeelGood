@@ -36,4 +36,5 @@ export async function updateCliente(nome, email, telefone, id) {
   }
 }
 
+
 export default addClient;

@@ -49,6 +49,7 @@ endpoint.put('/atualizar/corretor/:nome/:email/:senha/:telefone/:id', async (req
     }
 });
 
+
 endpoint.delete('/remover/corretor/:id', async (req, resp) => {
     let id = req.params.id;
     let registro = await removerCorretor(id);
@@ -70,5 +71,6 @@ endpoint.post('/loginCorretor', async (req, resp) => {
 
     }
 });
+
 
 export default endpoint;

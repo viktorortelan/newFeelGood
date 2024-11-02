@@ -33,7 +33,7 @@ export async function cadastroCliente(nome, email, telefone) {
 export async function buscar(email) {
     let comando = `
         select * from tb_cliente ;
-    `
+    `;
 
     let registro = await database.query(comando);
     let info = registro[0];
@@ -43,7 +43,7 @@ export async function buscar(email) {
 export async function totalCliente() {
     let comando = `
         SELECT COUNT(*) AS total_clientes FROM tb_cliente;
-    `
+    `;
     let registro = await database.query(comando);
     let fim = registro[0];
     return fim[0];

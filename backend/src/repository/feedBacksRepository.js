@@ -10,12 +10,13 @@ export async function addFeed(id, comentario) {
     return fim.insertId;
 }
 
+
 export async function aparecerFeed() {
     let comando = `
     SELECT 
-        c.nm_cliente AS nome_cliente,
-        f.ds_comentario AS comentario,
-        c.nm_foto AS nome_foto FROM 
+    c.nm_cliente AS nome_cliente,
+    f.ds_comentario AS comentario,
+    c.nm_foto AS nome_foto FROM 
     tb_feed_backs f INNER JOIN 
     tb_cliente c ON f.id_cliente = c.id_cliente
     LIMIT 0, 500;
@@ -25,7 +26,6 @@ export async function aparecerFeed() {
     let fim = registro[0];
     return fim;
 }
-
 
 export async function apareceIndividual(id) {
     let comando = `

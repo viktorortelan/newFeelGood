@@ -11,7 +11,6 @@ endpoint.post('/addFeed/:id/:comentario', async (req, resp) => {
     });
 });
 
-
 endpoint.get('/aparecerFeed', async (req, resp) => { 
     let registro= await aparecerFeed();
     resp.send(registro);

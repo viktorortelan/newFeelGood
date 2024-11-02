@@ -15,6 +15,7 @@ import addPictureCorretor from "../repository/addPictureCorretorRepository.js";
 import find from "../repository/findNameImgRepository.js";
 import findImgCliente from "../repository/findNameImgClienteRepository.js";
 
+
 const endpoint = Router();
 const m = multer({ storage });
 
@@ -120,6 +121,13 @@ endpoint.get('/findImgCliente/:id', async (req, resp) => {
   const x = await findImgCliente(id);
   resp.send(x);
   
+});
+
+// testando acesso de imagens dentro da API
+
+endpoint.get('/img/:name', (req, resp) => {
+  const { name } = req.params;
+  resp.send({ url: `http://localhost:8080/imgs/${name}` });
 });
 
 
